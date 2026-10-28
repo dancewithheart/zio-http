@@ -70,6 +70,13 @@ jobs:
         with:
           apps: sbt
 
+      - name: Diagnose Node.js
+        run: |
+          command -v node || true
+          node --version || true
+          command -v npm || true
+          npm --version || true
+
       - name: Check formatting
         if: matrix.scala == '2.13.18'
         run: sbt ++2.13.18 fmtCheck

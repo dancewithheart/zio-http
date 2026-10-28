@@ -95,6 +95,15 @@ ThisBuild / githubWorkflowPublish         :=
 ThisBuild / githubWorkflowBuildPreamble   := Seq(
   coursierSetup,
   WorkflowStep.Run(
+    name = Some("Diagnose Node.js"),
+    commands = List(
+      "command -v node || true",
+      "node --version || true",
+      "command -v npm || true",
+      "npm --version || true",
+    ),
+  ),
+  WorkflowStep.Run(
     name = Some("Check formatting"),
     commands = List(s"sbt ++${Scala213} fmtCheck"),
     cond = Some(s"matrix.scala == '${Scala213}'"),
